@@ -108,7 +108,6 @@ export const PostCard: React.FC<PostCardProps> = ({ result }) => {
 
            <div 
              className={`relative w-full ${aspectRatioClass} bg-gray-900 rounded-lg overflow-hidden border border-gray-800 group`}
-             title={result.imagePrompt || "Waiting for prompt generation..."}
            >
               {result.isLoadingImage ? (
                  <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500">
@@ -122,8 +121,9 @@ export const PostCard: React.FC<PostCardProps> = ({ result }) => {
                     alt={`Generated for ${result.platform}`} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                      <span className="text-xs text-white bg-black/50 px-2 py-1 rounded backdrop-blur-sm">Prompt: {result.imagePrompt?.slice(0, 30)}...</span>
+                   <div className="absolute inset-0 bg-dark-950/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center p-6 text-center">
+                      <span className="text-[10px] uppercase tracking-widest text-brand-400 font-bold mb-2">Visual Prompt</span>
+                      <p className="text-sm text-gray-200 font-medium leading-relaxed italic">"{result.imagePrompt}"</p>
                   </div>
                 </>
               ) : result.error ? (

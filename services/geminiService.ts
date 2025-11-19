@@ -12,7 +12,7 @@ const responseSchema: Schema = {
       type: Type.OBJECT,
       properties: {
         postText: { type: Type.STRING, description: "The actual post content for LinkedIn." },
-        imagePrompt: { type: Type.STRING, description: "A detailed image generation prompt that visually represents the specific subject matter, message, or metaphors in the postText. Suitable for LinkedIn's professional aesthetic." }
+        imagePrompt: { type: Type.STRING, description: "A highly specific image generation prompt based directly on the content of postText. If postText mentions specific objects (e.g., coffee, laptop, sneakers), include them. If abstract, use a matching visual metaphor. Professional style." }
       },
       required: ["postText", "imagePrompt"]
     },
@@ -20,7 +20,7 @@ const responseSchema: Schema = {
       type: Type.OBJECT,
       properties: {
         postText: { type: Type.STRING, description: "The tweet content. Short, punchy, with hashtags." },
-        imagePrompt: { type: Type.STRING, description: "A detailed image generation prompt that visually represents the specific subject matter or metaphors in the postText. Suitable for a bold Twitter feed." }
+        imagePrompt: { type: Type.STRING, description: "A specific image generation prompt that visually depicts the subject matter of the tweet. Bold, high-contrast style." }
       },
       required: ["postText", "imagePrompt"]
     },
@@ -28,7 +28,7 @@ const responseSchema: Schema = {
       type: Type.OBJECT,
       properties: {
         postText: { type: Type.STRING, description: "The Instagram caption with a block of relevant hashtags." },
-        imagePrompt: { type: Type.STRING, description: "A detailed image generation prompt that visually represents the specific subject matter or metaphors in the postText. Suitable for a high-quality Instagram aesthetic." }
+        imagePrompt: { type: Type.STRING, description: "A specific image generation prompt that visually depicts the subject matter of the caption. Aesthetic, photography-style." }
       },
       required: ["postText", "imagePrompt"]
     }
@@ -46,11 +46,14 @@ export const generatePostContent = async (idea: string, tone: Tone): Promise<Gen
     2. Twitter/X: Short, punchy, under 280 chars, 1-2 hashtags max.
     3. Instagram: Visual-first, engaging caption, include 10-15 relevant hashtags.
     
-    For EACH platform, write a specific, high-quality image generation prompt that is strictly related to the content of the post you just wrote.
-    - The image should not just be generic to the platform; it must illustrate the specific topic, message, or metaphor of the post body.
-    - The LinkedIn image prompt should be professional and clean (e.g. modern office, abstract tech, professional concept).
-    - The Twitter image prompt should be eye-catching and bold (e.g. high contrast, digital art, minimal).
-    - The Instagram image prompt should be artistic, aesthetic, and photography-style.
+    For EACH platform, write a specific, high-quality image generation prompt that is STRICTLY related to the content of the post you just wrote.
+    - CRITICAL: The image MUST visually represent the specific nouns, verbs, or core metaphors used in your generated post text.
+    - Do NOT generate generic "social media" images.
+    - If the post is about "coffee", the image MUST show coffee.
+    - If the post is about "coding", the image MUST show code or a computer.
+    - The LinkedIn image prompt should be professional (e.g. modern office, specific industry equipment).
+    - The Twitter image prompt should be bold and high-contrast.
+    - The Instagram image prompt should be aesthetic and photography-style.
     
     Ensure the image prompts are descriptive, visual, and optimized for a text-to-image model.
   `;
